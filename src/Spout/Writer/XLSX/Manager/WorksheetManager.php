@@ -105,7 +105,7 @@ EOD;
     /**
      * {@inheritdoc}
      */
-    public function startSheet(Worksheet $worksheet)
+    public function startSheet(Worksheet $worksheet, $columnwidths = null)
     {
         $sheetFilePointer = \fopen($worksheet->getFilePath(), 'w');
         $this->throwIfSheetFilePointerIsNotAvailable($sheetFilePointer);
@@ -113,6 +113,18 @@ EOD;
         $worksheet->setFilePointer($sheetFilePointer);
 
         \fwrite($sheetFilePointer, self::SHEET_XML_FILE_HEADER);
+        if( !empty($columnwidths) ) {
+            \fwrite($sheetFilePointer, '<cols>';
+            foreach( $columnwidths as $c ) {
+                \fwrite($sheetFilePointer, 
+                    '<col min="' . $c['min'] .
+                    '" max="' . $c['max'] .
+                    '" width="' . $c['width'] .
+                    '" customWidth="1"/>'
+                );
+            }
+            \fwrite($sheetFilePointer, '</cols>';
+        }
         \fwrite($sheetFilePointer, '<sheetData>');
     }
 

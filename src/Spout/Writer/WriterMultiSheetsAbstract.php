@@ -64,11 +64,11 @@ abstract class WriterMultiSheetsAbstract extends WriterAbstract
     /**
      * {@inheritdoc}
      */
-    protected function openWriter()
+    protected function openWriter($columnWidths = null)
     {
         if (!$this->workbookManager) {
             $this->workbookManager = $this->managerFactory->createWorkbookManager($this->optionsManager);
-            $this->workbookManager->addNewSheetAndMakeItCurrent();
+            $this->workbookManager->addNewSheetAndMakeItCurrent($columnWidths);
         }
     }
 

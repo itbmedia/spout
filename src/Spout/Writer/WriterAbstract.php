@@ -95,14 +95,14 @@ abstract class WriterAbstract implements WriterInterface
     /**
      * {@inheritdoc}
      */
-    public function openToFile($outputFilePath)
+    public function openToFile($outputFilePath, $columnWidths = null)
     {
         $this->outputFilePath = $outputFilePath;
 
         $this->filePointer = $this->globalFunctionsHelper->fopen($this->outputFilePath, 'wb+');
         $this->throwIfFilePointerIsNotAvailable();
 
-        $this->openWriter();
+        $this->openWriter($columnWidths);
         $this->isWriterOpened = true;
 
         return $this;
@@ -112,7 +112,7 @@ abstract class WriterAbstract implements WriterInterface
      * @codeCoverageIgnore
      * {@inheritdoc}
      */
-    public function openToBrowser($outputFileName)
+    public function openToBrowser($outputFileName, $columnWidths = null)
     {
         $this->outputFilePath = $this->globalFunctionsHelper->basename($outputFileName);
 
@@ -137,7 +137,7 @@ abstract class WriterAbstract implements WriterInterface
         $this->globalFunctionsHelper->header('Cache-Control: max-age=0');
         $this->globalFunctionsHelper->header('Pragma: public');
 
-        $this->openWriter();
+        $this->openWriter($columnWidths);
         $this->isWriterOpened = true;
 
         return $this;
