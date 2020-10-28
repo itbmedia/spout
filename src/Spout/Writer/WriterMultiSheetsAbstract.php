@@ -99,10 +99,10 @@ abstract class WriterMultiSheetsAbstract extends WriterAbstract
      * @throws WriterNotOpenedException If the writer has not been opened yet
      * @return Sheet The created sheet
      */
-    public function addNewSheetAndMakeItCurrent()
+    public function addNewSheetAndMakeItCurrent($columnWidths = null)
     {
         $this->throwIfWorkbookIsNotAvailable();
-        $worksheet = $this->workbookManager->addNewSheetAndMakeItCurrent();
+        $worksheet = $this->workbookManager->addNewSheetAndMakeItCurrent($columnWidths);
 
         return $worksheet->getExternalSheet();
     }
