@@ -114,16 +114,18 @@ EOD;
 
         \fwrite($sheetFilePointer, self::SHEET_XML_FILE_HEADER);
         if( !empty($columnwidths) ) {
-            \fwrite($sheetFilePointer, '<cols>';
+            \fwrite($sheetFilePointer, '<cols>');
+            $n = 0;
             foreach( $columnwidths as $c ) {
+                $n++;
                 \fwrite($sheetFilePointer, 
-                    '<col min="' . $c['min'] .
-                    '" max="' . $c['max'] .
-                    '" width="' . $c['width'] .
+                    '<col min="' . $n .
+                    '" max="' . $n .
+                    '" width="' . $c .
                     '" customWidth="1"/>'
                 );
             }
-            \fwrite($sheetFilePointer, '</cols>';
+            \fwrite($sheetFilePointer, '</cols>');
         }
         \fwrite($sheetFilePointer, '<sheetData>');
     }
